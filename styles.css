@@ -1,0 +1,78 @@
+/* THIS IS THE STYLE SHEET FOR THE PIXEL ART MAKER PROJECT*/
+
+
+/* alings the content of the body tag to the center of the page*/
+body {
+    text-align: center;
+}
+/* sets the properties of all h1 elements */
+h1 {
+    font-family: Spirax;
+    font-size: 4em;
+    color: #691C1C;
+    /* sets a shadow behind the h1 element*/
+    text-shadow: 6px 8px 10px rgba(100, 100, 150, 1);
+}
+
+/* sets the properties of all h2 elements */
+h2 {
+    margin-: 1em 0 0;
+    font-family: Spirax;
+    color: #0848A1;
+    background: #DBD4EA;
+    /* sets a shadow behind the h1 element*/
+    text-shadow: 6px 8px 10px rgba(115, 154, 150, 1);
+}
+
+/* sets the properties of all h3 elements */
+h3 {
+    margin-: 1em 0 0;
+    font-family: Spirax;
+    color: #FF0000;
+    
+}
+
+/* sets the properties of all unordered lists*/
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* sets border for the table tag , the table row and the table data*/
+table,
+tr,
+td {
+    border: 1px solid black;
+}
+/* sets the table border into a single border*/
+table {
+    border-collapse: collapse;
+    margin:  auto;
+}
+/*sets height for the table row*/
+tr {
+    height: 20px;
+}
+/* stes height for the table data*/
+td {
+    width: 20px;
+}
+/* sets the size of the space where the height and width value are contained*/
+input[type=number] {
+    width: 3em;
+}
+
+.error {
+    border-radius: 0%;
+    content:"";
+    position: absolute;
+    top: 0; left: 0;
+    width: inherit; height: inherit;
+    border-radius: 998px;
+    box-shadow: inset 30px 0 0 rgba(220, 84, 85, 0.3),
+    inset 0 30px 0 rgba(205, 90, 83, 0.90),
+    inset -30px 0 0 rgba(205, 130, 83, 0.90),
+    inset 0 -30px 0 rgba(240, 100, 120, 0.3);
+    animation: shadowsdancing 2s infinite;
+}
