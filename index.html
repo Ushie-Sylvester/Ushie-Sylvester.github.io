@@ -1,54 +1,61 @@
-<!-- THIS IS THE HTML DOCUMENT FOR THE PIXEL ART MAKER PROJECT-->
-<!-- DEVELOPED BY USHIE SYLVESTER KENENG COMPLETED ON THE 27TH JUNE 2018-->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Pixel Art Maker!</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spirax">
-    <link rel="stylesheet" href="styles.css">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="jscolor.min.js"></script>
-    <meta charset="UTF-8">
-</head>
-    <h1><span style="color: #0848A1">Lab:</span> Pixel <span style="color: #FF0000">A</span><span style="color: #0000FF">r</span><span style="color: #FFFF00">t</span> Maker</h1>
-
-    <!-- Instructions on how to use the website-->
-    <h3> Confused? Follow the Instructions</h3>
-    	<h4><ul>
-    		<li>Use the <span style="color: #FF0000">"Grid Height"</span> and <span style="color: #FF0000">"Grid Width"</span> to select the size of the Canvas you want to make your design on. Then Click on <span style="color:#FF0000 ">"Start your Design"</span></li>
-    		<li>Select the color that suits what you want to make using the <span style="color: #FF0000">"Choose your Color tab"</span> </li>
-    		<li>Concerned about Making a mistake? Not to Worry Just <span style="color: #FF0000">doubleclick</span> to Clear the cell or Click the <span style="color: #FF0000">"Reset"</span> button to start all over.</li>
-    		<li>Enjoy Your Design!!!</li>
-    	</ul></h4>
- 
-    <h2>Choose Grid Size</h2>
-    <!-- This code allows the user to set the height and width of the grid-->
-    <form id="size-picker">
-    	<!--The "max" and "min" sets the minimum and maximum value the grid should contain while the "value" sets the initial value for the grid-->
-        <span style= "color:#691C1C">Grid Height:</span>
-        <input type="number" id="input-height" name="height" min="1" max="45" value="1">
-        <span style= "color:#691C1C ">Grid Width: </span>
-        <input type="number" id="input-width" name="width" min="1" max="45" value="1">
-
-        <!--Code to call the MakeGrid() function-->
-        <button id="submit" type="button" onclick="makeGrid()">
-        <span style="
-        color:#691C1C "> Start your Design </span></button>
-
-        <!--Code to reset the Grid-->
-        <button type="reset" onclick="backUp()"><span style="color:red ">Reset</span></button>
-    </form>
-
-    <div class="" id="error"></div>
-    <!--This code introduces the color palete-->
-    <h2>Choose your Color</h2>
-    <input type="color" id="color-picker" value="#000033">
-
-    <h2>Design Canvas</h2>
-    <table id="pixel-canvas">
-        
-    </table>
-    <!-- The page will call the javascript file after it has finish loading-->
-    <script src="designs.js"></script>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My Awesome Portfolio</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,500" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <div class="container">
+    <header class="header">
+      <div class="header_inner">
+        <img class="header_logo" src="images/udacity-logo.png" alt="Udacity's Logo">
+        <div class= "header_title">
+          <h1 class="header_name">USHIE SYLVESTER</h1>
+          <h3 class="header_sub">Front End Developer</h3>
+        </div>
+        <div class="clear_float"></div>
+      </div>
+    </header>
+    <div class="front_image">
+        <img src="images/front.jpg" alt="A programmer">
+    </div>
+    <div class=feature_section>
+        <h2> Featured Works</h2>
+    <div class="grid_layout">
+        <div class="works">
+            <img src="images/html.jpg" alt="Html">
+            <p><a href="#"> Introduction to Html</a></p>
+        </div>
+        <div class="works">
+            <img src="images/javascript.jpg" alt="Html">
+            <p><a href="#">Javascript and its Magic</a></p>
+        </div>
+        <div class="works">
+            <img src="images/python.png" alt="Html">
+            <p><a href="#">Not the Snake but the Language</a></p>
+        </div>
+        <div class="works">
+            <img src="images/git_hub.png" alt="Html">
+            <p><a href="#">Learn to share your codes</a></p>
+        </div>
+        <div class="works">
+            <img src="images/fire_base.png" alt="Html">
+            <p><a href="#">Firebase!</a></p>
+        </div>
+        <div class="works">
+            <img src="images/flutter.png" alt="Html">
+            <p><a href="#">Build an Android App</a></p>
+        </div>
+    </div>
+    </div>
+</div>
+<footer>
+    
+</footer>
 </body>
 </html>
+
