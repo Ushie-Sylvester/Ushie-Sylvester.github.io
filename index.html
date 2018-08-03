@@ -1,61 +1,41 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>My Awesome Portfolio</title>
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,500" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="main.css">
-  </head>
-  <body>
+    <title>Matching Game</title>
+    <meta name="description" content="">
+    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Monoton">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.2/css/mdb.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
     <div class="container">
-    <header class="header">
-      <div class="header_inner">
-        <img class="header_logo" src="images/udacity-logo.png" alt="Udacity's Logo">
-        <div class= "header_title">
-          <h1 class="header_name">USHIE SYLVESTER</h1>
-          <h3 class="header_sub">Front End Developer</h3>
-        </div>
-        <div class="clear_float"></div>
-      </div>
-    </header>
-    <div class="front_image">
-        <img src="images/front.jpg" alt="A programmer">
+        <header>
+            <h1> <span style="color: #FF0000">MATCH</span><span style="color: #0000FF">ING</span><span style="color: #FFFF00">GAME</span> </h1>
+        </header>
+
+        <section class="score-panel">
+        	<ul class="stars">
+        		<li><i class="fa fa-star"></i></li>
+        		<li><i class="fa fa-star"></i></li>
+        		<li><i class="fa fa-star"></i></li>
+        	</ul>
+
+        	<span class="moves"></span> Moves
+
+            <div class="restart">
+        		<i class="fa fa-repeat"></i>
+        	</div>
+        </section>
+
+        <ul class="deck"></ul>
     </div>
-    <div class=feature_section>
-        <h2> Featured Works</h2>
-    <div class="grid_layout">
-        <div class="works">
-            <img src="images/html.jpg" alt="Html">
-            <p><a href="#"> Introduction to Html</a></p>
-        </div>
-        <div class="works">
-            <img src="images/javascript.jpg" alt="Html">
-            <p><a href="#">Javascript and its Magic</a></p>
-        </div>
-        <div class="works">
-            <img src="images/python.png" alt="Html">
-            <p><a href="#">Not the Snake but the Language</a></p>
-        </div>
-        <div class="works">
-            <img src="images/git_hub.png" alt="Html">
-            <p><a href="#">Learn to share your codes</a></p>
-        </div>
-        <div class="works">
-            <img src="images/fire_base.png" alt="Html">
-            <p><a href="#">Firebase!</a></p>
-        </div>
-        <div class="works">
-            <img src="images/flutter.png" alt="Html">
-            <p><a href="#">Build an Android App</a></p>
-        </div>
-    </div>
-    </div>
-</div>
-<footer>
-    
-</footer>
+
+    <script src="js/app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.0/sweetalert2.js"></script>
 </body>
 </html>
-
