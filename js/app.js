@@ -1,9 +1,46 @@
 /*
  * Create a list that holds all of your cards
  */
-const icons = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-paper-plane-o", 
-"fa fa-anchor", "fa fa-anchor", "fa fa-bolt", "fa fa-bolt", "fa fa-cube", "fa fa-cube", 
-"fa fa-leaf", "fa fa-leaf", "fa fa-bicycle", "fa fa-bicycle", "fa fa-bomb", "fa fa-bomb"];
+const icons = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube",
+"fa fa-leaf", "fa fa-bicycle", "fa fa-bomb"],
+doubleIcons = icons.concat(icons);
+
+
+// Timer function from https://github.com/ervaibhavkumar/Udacity-Memory-Game/blob/master/js/app.js
+let min = 0,
+sec = 0,
+hours = 0,
+letsStop = 0;
+window.onload = function() {
+    setInterval(function() {
+        if (letsStop !== 1) {
+            sec++;
+            if (sec === 60) {
+                min++;
+                sec = 0;
+            }
+            if (min === 60) {
+                hours++;
+                min = 0;
+                sec = 0;
+            }
+            $('.timer').html(hours + ':' + min + ':' + sec);
+            // if(letsStop === 1)
+            // {
+            //     break;
+            // } 
+            console.log(min);
+            console.log(sec);
+        }
+
+    }, 1000);
+};
+ /* Display the cards on the page
+ *   - shuffle the list of cards using the provided "shuffle" method below
+ *   - loop through each card and create its HTML
+ *   - add each cards HTML to the page
+ */
+
 
 const cardsContainer = document.querySelector(".deck");
 //array to hold an open card
@@ -14,10 +51,10 @@ let matchedCards= [];
  * Initialize the Game
  */
 function init() {
-    for(let i = 0; i < icons.length; i++) {
+    for(let i = 0; i < doubleIcons.length; i++) {
         const card = document.createElement("li");
         card.classList.add("card");
-        card.innerHTML = `<i class="${icons[i]}"></i>`;
+        card.innerHTML = `<i class="${doubleIcons[i]}"></i>`;
         cardsContainer.appendChild(card);
 
         // Add click event to each card
@@ -27,7 +64,19 @@ function init() {
 }
 // Calling the Card function
 
-card= shuffle(icons);
+card= shuffle(doubleIcons);
+
+/*
+ * set up the event listener for a card. If a card is clicked:
+ *  - display the card's symbol (put this functionality in another function that you call from this one)
+ *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
+ *  - if the list already has another card, check to see if the two cards match
+ *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
+ *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
+ *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
+ *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+ */
+
 
 
     // creating the click Event
@@ -97,13 +146,16 @@ function compare(currentCard,previousCard) {
  *  Check if Game is over and Display a congratulatory message
  */
 function gameOver() {
-    if (matchedCards.length === icons.length){
+    if (matchedCards.length === doubleIcons.length){
+        
+        //COngratulation message function from https://github.com/ervaibhavkumar/Udacity-Memory-Game/blob/master/js/app.js
         setTimeout(function() {
             $('.deck').each(function() {
                 swal({
                     title: 'Congratulations',
                     type: 'success',
-                    text: 'You Won the Game!!!, With ' + moves + 'Moves and You got ' + stars + ' Star(s)', // Time taken is ' + hours + ' Hours ' + min + ' Minutes and ' + sec + ' Seconds',
+                    text: `You Won the Game!!!, With ${moves} Moves and You got ${stars} Star(s) ,
+                    Time taken is ${hours} Hours ${min} Minutes and ${sec} Seconds`,
                     allowOutsideClick: false,
                     showCancelButton: true,
                     confirmButtonText: 'Play Again',
@@ -119,6 +171,10 @@ function gameOver() {
             });
         }, 300);
         
+        letsStop = 1;
+            $('.timer').hide();
+            $('.timer').html('0:0:0');
+            $('.timer').show();
     }
 };
 
@@ -167,18 +223,24 @@ const restart = document.querySelector(".restart");
 restart.addEventListener("click", function(){
     //Delete all Cards
     cardsContainer.innerHTML = "";
+    openedCards = [];
 
-    //Call "init" function to create new cards
+    //Call "init"and "shuffle" function to create new cards and re-shuffle the array
     init();
+    shuffle(doubleIcons);
+    location.reload();
+    
+
 
     // Reset Any related Variable
     matchedCards = [];
     moves = 0;
+    numclicks = 0;
     movesContainer.innerHTML = moves ;
     starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
     <li><i class="fa fa-star"></i></li>
     <li><i class="fa fa-star"></i></li>`;
-})
+});
 
 
  // Shuffle function from http://stackoverflow.com/a/2450976
@@ -200,24 +262,9 @@ restart.addEventListener("click", function(){
 ///START THE GAME FOR THE FIRST TIME
 init();
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
 
 
 
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+
