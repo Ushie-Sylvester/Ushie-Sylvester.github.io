@@ -1,270 +1,142 @@
-/*
- * Create a list that holds all of your cards
- */
-const icons = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube",
-"fa fa-leaf", "fa fa-bicycle", "fa fa-bomb"],
-doubleIcons = icons.concat(icons);
+//Variables for Scores
+let score = 0,
+highScore = 0;
 
+// Enemies our player must avoid
+let Enemy = function(x, y, speed) {
+    // letiables applied to each of our instances go here,
+    // we've provided one for you to get started
+    this.x = x;
+    this.y = y;
+    this.speed = speed;
 
-// Timer function from https://github.com/ervaibhavkumar/Udacity-Memory-Game/blob/master/js/app.js
-let min = 0,
-sec = 0,
-hours = 0,
-letsStop = 0;
-window.onload = function() {
-    setInterval(function() {
-        if (letsStop !== 1) {
-            sec++;
-            if (sec === 60) {
-                min++;
-                sec = 0;
-            }
-            if (min === 60) {
-                hours++;
-                min = 0;
-                sec = 0;
-            }
-            $('.timer').html(hours + ':' + min + ':' + sec);
-            // if(letsStop === 1)
-            // {
-            //     break;
-            // } 
-            console.log(min);
-            console.log(sec);
-        }
-
-    }, 1000);
+    // The image/sprite for our enemies, this uses
+    // a helper we've provided to easily load images
+    this.sprite = 'images/enemy-bug.png';
 };
- /* Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each cards HTML to the page
- */
 
+// Update the enemy's position, required method for game
+// Parameter: dt, a time delta between ticks
+Enemy.prototype.update = function(dt) {
+    // You should multiply any movement by the dt parameter
+    // which will ensure the game runs at the same speed for
+    // all computers.
+    this.x += this.speed * dt;
 
-const cardsContainer = document.querySelector(".deck");
-//array to hold an open card
-let openedCards = [];
-let matchedCards= [];
-
-/*
- * Initialize the Game
- */
-function init() {
-    for(let i = 0; i < doubleIcons.length; i++) {
-        const card = document.createElement("li");
-        card.classList.add("card");
-        card.innerHTML = `<i class="${doubleIcons[i]}"></i>`;
-        cardsContainer.appendChild(card);
-
-        // Add click event to each card
-        click(card);
+    // when off canvas, reset position of enemy to move across again
+    if (this.x > 550) {
+        this.x = -100;
+        this.speed = 100 + Math.floor(Math.random() * 512);
     }
 
-}
-// Calling the Card function
+    // Check for collision between player and enemies
+    if (player.x < this.x + 60 && player.x + 37 > this.x && player.y < this.y + 25 && 30 + player.y > this.y) {
+        player.x = 200;
+        player.y = 380;
+        score = 0;
 
-card= shuffle(doubleIcons);
+        // Changes the Background when the player collide with an enemy
+        document.querySelector('body').style.backgroundColor = 'red';
+        setTimeout(function () {
+            document.querySelector('body').style.backgroundColor = 'white';
+        }, 200);
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
-
-
-
-    // creating the click Event
-function click(card) {
-
-    // Card click events
-    card.addEventListener("click", function(){
-
-        const currentCard = this;
-        const previousCard = openedCards[0];
-
-        // there is an open card
-        if(openedCards.length === 1) {
-
-            card.classList.add("open", "show","animated", "wobble", "disable");
-            openedCards.push(this);
-        
-            // comparing two cards
-            compare(currentCard, previousCard);
-
-        } else {
-        //  there is no open cards
-            card.classList.add("open", "show","animated", "wobble", "disable");
-            openedCards.push(this);
-        }
-        
-    });
-}
-
-/*
- * Compare the 2 cards
- */
-function compare(currentCard,previousCard) {
-    if(currentCard.innerHTML === previousCard.innerHTML) {
-
-        //if the cards matched remove the wobble class and add the rubberband class
-        currentCard.classList.remove("animated" , "wobble");
-        currentCard.classList.add("match","animated" ,"rubberBand");
-        previousCard.classList.remove("animated" , "wobble");
-        previousCard.classList.add("match","animated" ,"rubberBand" );
-        
-
-        matchedCards.push(currentCard, previousCard);
-
-        openedCards = [];
-
-        // CHECK IF GAME IS OVER
-
-        gameOver();
-
-        
-    } else{
-        //wait 350ms then execute this
-        setTimeout(function(){
-            currentCard.classList.remove("open", "show","animated", "wobble", "disable");
-            previousCard.classList.remove("open", "show","animated", "wobble", "disable");
-        }, 350);
-
-        openedCards = [];
     }
-    // Call Move Function
-    addMove()
+    //updating the score
+    if(highScore < score){
+        highScore = score;
+    }
+    document.getElementById('score').innerHTML = `Score: ${score} | High Score: ${highScore}`;
+};
 
-}
+// Draw the enemy on the screen, required method for game
+Enemy.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
 
-/*
- *  Check if Game is over and Display a congratulatory message
- */
-function gameOver() {
-    if (matchedCards.length === doubleIcons.length){
-        
-        //COngratulation message function from https://github.com/ervaibhavkumar/Udacity-Memory-Game/blob/master/js/app.js
-        setTimeout(function() {
-            $('.deck').each(function() {
-                swal({
-                    title: 'Congratulations',
-                    type: 'success',
-                    text: `You Won the Game!!!, With ${moves} Moves and You got ${stars} Star(s) ,
-                    Time taken is ${hours} Hours ${min} Minutes and ${sec} Seconds`,
-                    allowOutsideClick: false,
-                    showCancelButton: true,
-                    confirmButtonText: 'Play Again',
-                    confirmButtonColor: '#2E3D49',
-                    cancelButtonText: 'Close',
-                    cancelButtonColor: '#FF0000'
-                }).then(function() {
-                    location.reload();
-                }, function(dismiss) {
-                    console.log('Yes');
-                });
+// Now write your own player class
+// This class requires an update(), render() and
+// a handleInput() method.
+let Player = function(x, y, speed) {
+    this.x = x;
+    this.y = y;
+    this.speed = speed;
+    this.sprite = 'images/char-horn-girl.png';
+};
 
-            });
-        }, 300);
-        
-        letsStop = 1;
-            $('.timer').hide();
-            $('.timer').html('0:0:0');
-            $('.timer').show();
+Player.prototype.update = function() {
+    // Prevent player from moving beyond canvas wall boundaries
+    if (this.y > 380) {
+        this.y = 380;
+    }
+
+    if (this.x > 400) {
+        this.x = 400;
+    }
+
+    if (this.x < 0) {
+        this.x = 0;
+    }
+
+    // Check for player reaching top of canvas and winning the game
+    if (this.y < 0) {
+        this.x = 200;
+        this.y = 380;
+        score = score +1
+
+        // Changes the background when the player reaches the top of canvas
+        document.querySelector('body').style.backgroundColor = 'green';
+        setTimeout(function () {
+            document.querySelector('body').style.backgroundColor = 'white';
+        }, 200);
     }
 };
 
-/*
-* Add Moves
-*/
-const movesContainer = document.querySelector(".moves");
-let moves = 0;
-movesContainer.innerHTML = 0;
-function addMove() {
-    moves++;
-    movesContainer.innerHTML = moves;
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
 
-    //Call Rating function
-    rating();
-}
-
-/*
-* Rating
-*/
-const starsContainer = document.querySelector(".stars");
-let stars = 3;
-function rating(){
-    switch(moves) {
-        case 18:
-            starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
-            <li><i class="fa fa-star"></i></li> <li><i class="fa fa-star-o"></i></li>`;
-            stars = 2;
-
-        break;
-
-        case 25:
-        starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li> 
-        <li><i class="fa fa-star-o"></i></li> <li><i class="fa fa-star-o"></i></li>`;
-        stars = 1;
-
-
+Player.prototype.handleInput = function(keyPress) {
+    switch (keyPress) {
+        case 'left':
+            this.x -= this.speed + 50;
+            break;
+        case 'up':
+            this.y -= this.speed + 30;
+            break;
+        case 'right':
+            this.x += this.speed + 50;
+            break;
+        case 'down':
+            this.y += this.speed + 30;
+            break;
     }
-}
+};
 
-/*
-* Restart Button function
-*/
+// Now instantiate your objects.
+// Place all enemy objects in an array called allEnemies
+// Place the player object in a letiable called player
+let allEnemies = [];
 
-const restart = document.querySelector(".restart");
-restart.addEventListener("click", function(){
-    //Delete all Cards
-    cardsContainer.innerHTML = "";
-    openedCards = [];
+// Position "y" where the enemies will are created
+let enemyPosition = [60, 140, 220];
+let player = new Player(200, 380, 50);
+let enemy;
 
-    //Call "init"and "shuffle" function to create new cards and re-shuffle the array
-    init();
-    shuffle(doubleIcons);
-    location.reload();
-    
-
-
-    // Reset Any related Variable
-    matchedCards = [];
-    moves = 0;
-    numclicks = 0;
-    movesContainer.innerHTML = moves ;
-    starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
-    <li><i class="fa fa-star"></i></li>
-    <li><i class="fa fa-star"></i></li>`;
+enemyPosition.forEach(function(posY) {
+    enemy = new Enemy(0, posY, 100 + Math.floor(Math.random() * 512));
+    allEnemies.push(enemy);
 });
 
+// This listens for key presses and sends the keys to your
+// Player.handleInput() method. You don't need to modify this.
+document.addEventListener('keyup', function(e) {
+    let allowedKeys = {
+        37: 'left',
+        38: 'up',
+        39: 'right',
+        40: 'down'
+    };
 
- // Shuffle function from http://stackoverflow.com/a/2450976
- function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-}
-
-
-///START THE GAME FOR THE FIRST TIME
-init();
-
-
-
-
-
-
-
+    player.handleInput(allowedKeys[e.keyCode]);
+});

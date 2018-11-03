@@ -1,25 +1,20 @@
-# fend-project-memory-game
-This is a repository containing my Memory Game Project at Udacity
+# CLASSIC ARCADE GAME
 
+**This repository contains my classic Acade Game clone at Udacity Nanodegree Programe
 
-## How to play :-
-1. Download or clone the repositoryon your machine.
+## How to Play:
+1. Download or clone this repository to your machine.
 2. Open index.html in your browser.
 OR
-Click on this [LINK](https://ushie-sylvester.github.io/) to see the live version of the game .
+Click [HERE](https://ushie-sylvester.github.io/) to play live.
 
-## Rules and Regulations :-
-1. You have to match cards with identical face.
-2. Your moves are counted out as you proceed the game.
-3. If your moves are less than 18 then you will get 3 Stars.
-4. If your moves are greater than 18 and less than 25 then you will get 2 Stars.
-5. Else you will get 1 Star.
-6. You can also restart the game at any stage by clicking the restart button.
+## Game Directions & Rules
+1. The goal is to get your character to the water while avoiding getting hit by the enemy bugs
+2. Use your keyboard arrow keys to move the player up, down, right, left
+3.  If a bug hits you, you lose all your points.
+4. If you succesfully get to the water you gain a point.
 
-## Dependencies
-1.  font-awesome: "^4.6.1"
-2.  mdbootstrap: "^4.3.2"
-3.  jquery: "^3.2.1"
-4.  sweetalert2:"^6.9.0"
+## Technologies used
+Javascript(Object Oriented), HTML5 canvas, Css
 
-## Have Fun!!!
+## Enjoy The Game!!!

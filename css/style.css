@@ -1,0 +1,13 @@
+body {
+    text-align: center;
+}
+
+h1 {
+    /* font-family: 'Hanalei Fill', Modern Antiqua; */
+    font-weight: 300;
+    font-family: Monoton;
+    font-size: 4em;
+    color: #691C1C;
+    /* sets a shadow behind the h1 element*/
+    text-shadow: 6px 8px 10px rgba(100, 100, 150, 1);
+}
